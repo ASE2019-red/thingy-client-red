@@ -1,0 +1,25 @@
+{
+  "develop": {
+    "debug": true,
+    "testing": true,
+    "mock": false,
+    "api": {
+      "host": "localhost:9000/",
+      "apiBase": "coffee/"
+    }
+  },
+  "mock": {
+    "debug": true,
+    "testing": true,
+    "mock": true,
+    "api": {
+      "host": "localhost:9000/",
+      "apiBase": "coffee/"
+    }
+  },
+  "production": {
+    "debug": false,
+    "testing": false,
+    "mock": false
+  }
+}

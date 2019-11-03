@@ -1,0 +1,9 @@
+{
+    "port": 3000,
+    "dir": "/mocks",
+    "root": ["./"],
+    "corsEnable": true,    
+    "rewriteNotFound": false,
+    "rewriteTemplate": "index.html",
+    "headers": {}
+}
