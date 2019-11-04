@@ -1,0 +1,25 @@
+{
+  "develop": {
+    "debug": true,
+    "testing": true,
+    "mock": false,
+    "api": {
+      "host": "http://localhost:3000",
+      "apiBase": "/"
+    }
+  },
+  "mock": {
+    "debug": true,
+    "testing": true,
+    "mock": true,
+    "api": {
+      "host": "http://localhost:8000",
+      "apiBase": "/"
+    }
+  },
+  "production": {
+    "debug": false,
+    "testing": false,
+    "mock": false
+  }
+}
