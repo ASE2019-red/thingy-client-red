@@ -1,6 +1,7 @@
 <template>
   <h1>${heading}</h1>
   <p>Welcome to the coffee counter!</p>
+
   <button click.delegate = "getAllCoffees()">Get all coffees</button>
   <p if.bind="allCoffees">${allCoffees}</p>
   <p></p>
