@@ -1,8 +1,20 @@
 <template>
   <h1>${heading}</h1>
-
-  <p>${message} ${coffeeCounter}<p>
+  <p>Welcome to the coffee counter!</p>
   <button click.delegate = "getAllCoffees()">Get all coffees</button>
+  <p if.bind="allCoffees">${allCoffees}</p>
   <p></p>
-  <button click.delegate = "getAllCoffeesOfMachine('fakemachine')">Get all coffees of fake machine</button>
+  <button click.delegate = "getAllMachines()">Get all machines</button>
+  <p if.bind="allCoffeesOfSpecificMachine">${allCoffeesOfSpecificMachine}</p>
+  <template if.bind="machines.length===0">
+    <p>No machines found.</p>
+  </template>
+  <template if.bind="machines && machines.length!==0">
+    <p>To see the number of produced coffees by a specific machine, click on one:</p>
+    <ul class="list-group">
+        <li repeat.for="machine of machines" click.delegate = "getAllCoffeesOfMachine(machine.id)" class="list-group-item">
+            ${machine.name}
+        </li>
+    </ul>
+  </template>
 </template>
