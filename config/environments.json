@@ -4,8 +4,8 @@
     "testing": true,
     "mock": false,
     "api": {
-      "host": "localhost:9000/",
-      "apiBase": "coffee/"
+      "host": "http://localhost:3000",
+      "apiBase": "/"
     }
   },
   "mock": {
@@ -13,8 +13,8 @@
     "testing": true,
     "mock": true,
     "api": {
-      "host": "localhost:9000/",
-      "apiBase": "coffee/"
+      "host": "http://localhost:8000",
+      "apiBase": "/"
     }
   },
   "production": {

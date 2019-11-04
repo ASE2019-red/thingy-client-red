@@ -1,0 +1,11 @@
+[
+  {
+    "id": 0,
+    "machine": {
+      "id": 0,
+      "name": "coffee machine",
+      "active": true
+    },
+    "status": "consumed"
+  }
+]
