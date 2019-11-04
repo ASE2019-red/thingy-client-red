@@ -32,3 +32,6 @@ Run `au test` (or `au jest`).
 
 To run in watch mode, `au test --watch` or `au jest --watch`.
 
+## Mock server
+
+To start the standalone mock server run `node mock-api/server.js`. To start the app in the `mock` environment together with the mock server run `npm run start:mock`.
