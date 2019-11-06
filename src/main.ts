@@ -8,6 +8,7 @@ export function configure(aurelia: Aurelia) {
         .feature(PLATFORM.moduleName('resources/index'))
         .plugin(PLATFORM.moduleName('aurelia-configuration'), (config) => {
             const env = process.env.AU_ENV || 'develop';
+            console.log(env);
             config.setDirectory('./config/');
             config.setConfig('environments.json');
             config.setEnvironment(env);
