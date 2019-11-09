@@ -1,32 +1,6 @@
 <template>
-    <h1>${heading}</h1>
-    <p>Welcome to the coffee counter!</p>
-
-    <button click.delegate="getAllCoffees()">Get all coffees</button>
-    <p if.bind="allCoffees">${allCoffees}</p>
-    <p></p>
-    <button click.delegate="getAllMachines()">Get all machines</button>
-    <p if.bind="allCoffeesOfSpecificMachine">${allCoffeesOfSpecificMachine}</p>
-    <template if.bind="machines.length===0">
-        <p>No machines found.</p>
-    </template>
-    <template if.bind="machines && machines.length!==0">
-        <p>To see the number of produced coffees by a specific machine, click on one:</p>
-        <ul class="list-group">
-            <li repeat.for="machine of machines" click.delegate="getAllCoffeesOfMachine(machine.id)"
-                class="list-group-item">
-                ${machine.name}
-            </li>
-        </ul>
-    </template>
-    <div>
-        <button click.delegate="getDataPoints()">Get some data points</button>
-        <template if.bind="points && points.length!==0">
-            <ul class="list-group">
-                <li repeat.for="point of points" class="list-group-item">
-                    ${point.x} ${point.y} ${point.z}
-                </li>
-            </ul>
-        </template>
-    </div>
+    <ul repeat.for="nav of router.navigation">
+        <li class="${nav.isActive ? 'active' : ''}"><a href.bind="nav.href">${nav.title}</a></li>
+    </ul>
+    <router-view></router-view>
 </template>
