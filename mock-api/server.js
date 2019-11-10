@@ -43,4 +43,15 @@ app.delete('/machine/:machineId', (req, res) => {
     res.sendStatus(204);
 })
 
+// measurements endpoint
+app.get('/measurements', (req, res) => {
+    const measurements = [{name: "gravity"},{name: "sound"},{name: "test_m"}]
+    res.send(measurements);
+})
+
+app.get('/measurements/:id', (req, res) => {
+    const data = require('./mocks/gravity-measurements.json')
+    res.send(data);
+})
+
 app.listen(port, () => console.log(`Mock server listening on port ${port}!`))

@@ -1,58 +1,21 @@
-import { autoinject } from 'aurelia-framework';
-import { CoffeeService } from 'resources/coffee-service';
-import { MachineService } from 'resources/machine-service';
-import { MeasurementService } from 'resources/measurement-service';
+import { autoinject, PLATFORM } from 'aurelia-framework';
+import { Router, RouterConfiguration } from 'aurelia-router';
 
 @autoinject
 export class App {
-    private heading = 'Coffee Counter';
-    private allCoffees: string;
-    private allCoffeesOfSpecificMachine: string;
-    private machines;
-    private points = [];
+    private router: Router;
 
-    constructor(private coffeeService: CoffeeService,
-                private machineService: MachineService,
-                private measurementService: MeasurementService) {}
-
-    private getAllCoffees(): void {
-        this.coffeeService.getAll()
-            .then(response => response.json())
-            .then(listOfCoffees => {
-                this.allCoffees = 'All coffees: ' + Object.keys(listOfCoffees).length;
-                console.log('Returned list of coffees:' + listOfCoffees);
-            })
-            .catch(error => {
-                console.log('Error getting list of coffees!');
-            });
-    }
-
-    private getAllCoffeesOfMachine(machineId): void {
-        this.machineService.getCoffeeCount(machineId)
-            .then(response => response.text())
-            .then(text => {
-                this.allCoffeesOfSpecificMachine = 'All coffees of machine ' + machineId + ': ' + parseInt(text);
-            });
-    }
-
-    private getAllMachines(): void {
-        this.machineService.getAll()
-            .then(response => response.json())
-            .then(listOfMachines => {
-                this.machines = listOfMachines;
-                console.log('Returned list of machines:' + listOfMachines);
-            })
-            .catch(error => {
-                console.log('Error getting list of machines!');
-            });
-    }
-
-    private getDataPoints(): void {
-        this.measurementService.getSeries('gravity')
-            .then(response => response.json())
-            .then(points => {
-                this.points = points;
-            });
+    private configureRouter(config: RouterConfiguration, router: Router): void {
+        this.router = router;
+        config.options.pushState = true;
+        config.map([
+            { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('routes/coffe-counter/coffee-counter'),
+                nav: true, title: 'Coffe counter' },
+            { route: 'measurements', name: 'measurements', moduleId: PLATFORM.moduleName('routes/measurement/measurement'),
+                nav: true, title: 'Measurements' },
+            { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('routes/login/login'),
+                nav: true, title: 'Login' },
+          ]);
     }
 
 }
