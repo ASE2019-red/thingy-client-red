@@ -1,11 +1,15 @@
 const express = require('express')
+const http = require('http')
+const socket = require('socket.io')
 const cors = require('cors')
 
 const port = '3000'
 const app = express()
+const server = http.Server(app)
+const io = socket(server)
 app.use(cors())
 
-// coffe endpoint
+// coffee endpoint
 app.get('/coffee', (req, res) => {
     res.send(require('./mocks/all-coffees.json'))
 })
@@ -43,4 +47,25 @@ app.delete('/machine/:machineId', (req, res) => {
     res.sendStatus(204);
 })
 
-app.listen(port, () => console.log(`Mock server listening on port ${port}!`))
+io.
+    on('connection', (socket) => {
+        console.log('connect')
+        const stream = setInterval(() => {
+            const x = randomFloat()
+            const y = randomFloat()
+            const z = randomFloat()
+            socket.volatile.emit('data', [x, y, z])
+        })
+
+        socket.on('disconnect', () => {
+            clearInterval(stream)
+        })
+    })
+
+function randomFloat() {
+    const min=0;
+    const max=5;
+    return Math.random() * ( +max - +min ) + +min;
+}
+
+server.listen(port, () => console.log(`Mock server listening on port ${port}!`))
