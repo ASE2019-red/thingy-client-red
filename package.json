@@ -11,7 +11,8 @@
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.3.2",
     "aurelia-configuration": "^2.0.0",
-    "aurelia-fetch-client": "^1.8.2"
+    "aurelia-fetch-client": "^1.8.2",
+    "aurelia-router": "^1.7.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",

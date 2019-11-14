@@ -1,0 +1,13 @@
+<template>
+    <h1>Measurements</h1>
+    <div>
+        <button click.delegate="getDataPoints()">Get some data points</button>
+        <template if.bind="points && points.length!==0">
+            <ul class="list-group">
+                <li repeat.for="point of points" class="list-group-item">
+                    ${point.x} ${point.y} ${point.z}
+                </li>
+            </ul>
+        </template>
+    </div>
+</template>
