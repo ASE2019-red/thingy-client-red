@@ -6,7 +6,7 @@ const cors = require('cors')
 const port = '3000'
 const app = express()
 const server = http.Server(app)
-const io = socket(server)
+const io = socket(server, { origins: '*:*'})
 app.use(cors())
 
 // coffee endpoint
@@ -47,15 +47,18 @@ app.delete('/machine/:machineId', (req, res) => {
     res.sendStatus(204);
 })
 
-io.
-    on('connection', (socket) => {
-        console.log('connect')
+app.get('/wstest', (req, res) => {
+    res.sendFile(__dirname + '/wstest.html')
+})
+
+io.of('/measurements/live/gravity')
+    .on('connection', (socket) => {
         const stream = setInterval(() => {
             const x = randomFloat()
             const y = randomFloat()
             const z = randomFloat()
             socket.volatile.emit('data', [x, y, z])
-        })
+        }, 1000)
 
         socket.on('disconnect', () => {
             clearInterval(stream)
