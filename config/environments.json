@@ -4,7 +4,8 @@
     "testing": true,
     "mock": false,
     "api": {
-      "host": "http://localhost:8000",
+      "ssl": false,
+      "host": "localhost:8000",
       "apiBase": "/"
     }
   },
@@ -13,7 +14,8 @@
     "testing": true,
     "mock": true,
     "api": {
-      "host": "http://localhost:3000",
+      "ssl": false,
+      "host": "localhost:3000",
       "apiBase": "/"
     }
   },
