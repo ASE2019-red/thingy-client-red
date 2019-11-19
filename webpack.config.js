@@ -25,6 +25,15 @@ const cssRules = [
   { loader: 'css-loader' },
 ];
 
+const sassRules = [
+    {
+       loader: "sass-loader",
+       options: {
+         includePaths: ["node_modules"]
+       }
+    }
+  ];
+
 function resolveEnv(env) {
     if (env && env.mock) {
         return 'mock'
@@ -139,6 +148,19 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
         // CSS required in templates cannot be extracted safely
         // because Aurelia would try to require it again in runtime
         use: cssRules
+      },
+      {
+        test: /\.scss$/,
+        use: extractCss ? [{
+          loader: MiniCssExtractPlugin.loader
+        }, ...cssRules, ...sassRules
+        ]: ['style-loader', ...cssRules, ...sassRules],
+        issuer: /\.[tj]s$/i
+      },
+      {
+        test: /\.scss$/,
+        use: [...cssRules, ...sassRules],
+        issuer: /\.html?$/i
       },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.ts$/, loader: "ts-loader" },
