@@ -15,6 +15,8 @@ export class App {
                 nav: true, title: 'Measurements' },
             { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('routes/login/login'),
                 nav: true, title: 'Login' },
+            { route: 'machine', name: 'machine', moduleId: PLATFORM.moduleName('routes/machine/register-machine'),
+                nav: true, title: 'Machines' },
           ]);
     }
 

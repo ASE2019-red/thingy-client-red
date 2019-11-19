@@ -12,7 +12,8 @@
     "aurelia-bootstrapper": "^2.3.2",
     "aurelia-configuration": "^2.0.0",
     "aurelia-fetch-client": "^1.8.2",
-    "aurelia-router": "^1.7.1"
+    "aurelia-router": "^1.7.1",
+    "aurelia-validation": "^1.5.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",

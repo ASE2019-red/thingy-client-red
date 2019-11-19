@@ -13,7 +13,8 @@ export function configure(aurelia: Aurelia) {
             config.setConfig('environments.json');
             config.setEnvironment(env);
 
-        });
+        })
+        .plugin(PLATFORM.moduleName('aurelia-validation'));
 
     aurelia.start().then(() => {
         const config = aurelia.container.get(AureliaConfiguration);
