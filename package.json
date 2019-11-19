@@ -12,7 +12,9 @@
     "aurelia-bootstrapper": "^2.3.2",
     "aurelia-configuration": "^2.0.0",
     "aurelia-fetch-client": "^1.8.2",
-    "aurelia-router": "^1.7.1"
+    "aurelia-router": "^1.7.1",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
@@ -48,6 +50,8 @@
     "promise-polyfill": "^8.1.0",
     "socket.io": "^2.3.0",
     "style-loader": "^0.23.1",
+    "sass-loader": "^7.1.0",
+    "node-sass": "^4.11.0",
     "through2": "^3.0.0",
     "tree-kill": "^1.2.1",
     "ts-jest": "^24.0.0",
