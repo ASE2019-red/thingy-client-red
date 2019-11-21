@@ -26,7 +26,8 @@
     ],
     "arrow-parens": false,
     "radix": false,
-    "no-unused-expression": false
+    "no-unused-expression": false,
+    "align": false
   },
   "rulesDirectory": [],
   "interface-name": false,

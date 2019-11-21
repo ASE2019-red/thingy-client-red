@@ -1,0 +1,21 @@
+<template>
+    <h1>Register Machine</h1>
+    <form>
+        <div class="form-group">
+            <label for="name">Machine Name</label>
+            <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                placeholder="Enter machine name" value.bind="name & validate">
+        </div>
+        <div class="form-group">
+            <label for="sensorId">Sensor Identifier</label>
+            <input type="text" class="form-control" id="sensorId" placeholder="Sensor Identifier"
+                value.bind="sensorIdentifier & validate">
+        </div>
+        <div class="form-group">
+                <label for="maintenanceLimit">Coffees before maintenance</label>
+                <input type="number" class="form-control" id="maintenanceLimit" placeholder="Limit"
+                    value.bind="coffeesBeforeMaintenance & validate">
+            </div>
+        <button click.delegate="submit()" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</template>
