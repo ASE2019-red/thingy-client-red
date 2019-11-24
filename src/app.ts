@@ -12,7 +12,7 @@ export class App {
     }
 
     public attached(owningView, myView): void {
-        const ws = new WebSocket(`ws://${this.config.get('api.host')}`);
+        const ws = new WebSocket(`ws://${this.config.get('api.host')}/notifications`);
 
         ws.addEventListener('message', event => {
             console.log(event.data);

@@ -17,7 +17,7 @@ export class Charts {
     }
 
     public attached() {
-        const ws = new WebSocket(`ws://${this.config.get('api.host')}`);
+        const ws = new WebSocket(`ws://${this.config.get('api.host')}/measurements/live/gravity`);
 
         ws.addEventListener('message', event => {
             console.log(event.data);
