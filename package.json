@@ -15,7 +15,8 @@
     "aurelia-router": "^1.7.1",
     "aurelia-validation": "^1.5.0",
     "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
