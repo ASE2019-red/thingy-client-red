@@ -5,10 +5,10 @@ import { BootstrapFormRenderer } from './../../resources/validation/bootstrap-fo
 
 @autoinject
 export class RegisterMachine {
-    private controller: ValidationController = null;
-    private name: string;
-    private sensorIdentifier: string;
-    private coffeesBeforeMaintenance: number;
+    public controller: ValidationController = null;
+    public name: string;
+    public sensorIdentifier: string;
+    public coffeesBeforeMaintenance: number;
 
     constructor(validationControllerFactory: ValidationControllerFactory,
         private service: MachineService) {
@@ -17,18 +17,22 @@ export class RegisterMachine {
         this.controller.addRenderer(new BootstrapFormRenderer());
 
         const rules = ValidationRules
-            .ensure((m: RegisterMachine) => m.name)
+            .ensure('name')
             .required()
-            .ensure((m: RegisterMachine) => m.sensorIdentifier)
+            .ensure('sensorIdentifier')
             .required()
-            .ensure((m: RegisterMachine) => m.coffeesBeforeMaintenance)
+            .ensure('coffeesBeforeMaintenance')
             .required()
             .rules;
 
         this.controller.addObject(this, rules);
     }
 
+    public validate(): Promise<boolean> {
+        return this.controller.validate().then(result => result.valid);
+    }
+
     private submit() {
-        this.controller.validate();
+        this.validate();
     }
 }

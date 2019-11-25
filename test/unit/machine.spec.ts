@@ -1,21 +1,29 @@
 import { bootstrap } from 'aurelia-bootstrapper';
 import { PLATFORM } from 'aurelia-pal';
 import { ComponentTester, StageComponent } from 'aurelia-testing';
-import { Login } from './../../src/routes/login/login';
+import { MachineService } from 'resources/machine-service';
+import { RegisterMachine } from './../../src/routes/machine/register-machine';
 import { configure } from './shared';
 
-describe('Login validation', () => {
-    let tester: ComponentTester<Login>;
-    let viewModel: Login;
+export class MockMachineService {}
+
+describe('Register machine validation', () => {
+    let tester: ComponentTester<RegisterMachine>;
+    let viewModel: RegisterMachine;
+    const service = new MockMachineService();
 
     beforeEach(() => {
 
         tester = StageComponent
-            .withResources<Login>(PLATFORM.moduleName('routes/login/login'))
-            .inView('<login></login>')
+            .withResources<RegisterMachine>(PLATFORM.moduleName('routes/machine/register-machine'))
+            .inView('<register-machine></register-machine>')
             .boundTo({});
 
-        tester.bootstrap(configure);
+        tester.bootstrap(aurelia => {
+            aurelia.container.registerInstance(MachineService, service);
+
+            return configure(aurelia);
+        });
     });
 
     it('should be invalid', (done: () => void) => {
@@ -32,8 +40,9 @@ describe('Login validation', () => {
         tester.create(bootstrap as any)
             .then(async () => {
                 viewModel = tester.viewModel;
-                viewModel.password = '1234';
-                viewModel.username = 'janedoe';
+                viewModel.name = 'office';
+                viewModel.sensorIdentifier = 'abc:def:000';
+                viewModel.coffeesBeforeMaintenance = 123;
                 const result = await tester.viewModel.validate();
                 expect(result).toBeTruthy();
             })

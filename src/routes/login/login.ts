@@ -4,13 +4,21 @@ import { BootstrapFormRenderer } from '../../resources/validation/bootstrap-form
 
 @autoinject
 export class Login {
-    username: string;
-    password: string;
+    public username: string;
+    public password: string;
     public controller: ValidationController = null;
 
     constructor(validationControllerFactory: ValidationControllerFactory) {
         this.controller = validationControllerFactory.createForCurrentScope();
         this.controller.addRenderer(new BootstrapFormRenderer());
+
+        const rules = ValidationRules
+            .ensure('password')
+            .required()
+            .ensure('username')
+            .required()
+            .rules;
+
         this.controller.addObject(this, rules);
     }
 
@@ -22,10 +30,3 @@ export class Login {
         this.validate();
     }
 }
-
-const rules = ValidationRules
-    .ensure((l: Login) => l.password)
-    .required()
-    .ensure((l: Login) => l.username)
-    .required()
-    .rules;

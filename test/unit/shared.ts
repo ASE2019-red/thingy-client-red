@@ -4,9 +4,8 @@ import { DOM } from 'aurelia-pal';
 export function configure(aurelia: Aurelia): FrameworkConfiguration {
   return aurelia.use
     .standardConfiguration()
-    .developmentLogging()
-    .plugin(PLATFORM.moduleName('aurelia-validation'))
-    .feature('../../src/routes/login/login.ts');
+    // .developmentLogging()
+    .plugin(PLATFORM.moduleName('aurelia-validation'));
 }
 
 export function blur(element: Element): Promise<void> {
