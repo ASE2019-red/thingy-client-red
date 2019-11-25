@@ -1,12 +1,10 @@
 const express = require('express')
 const http = require('http')
-const socket = require('socket.io')
 const cors = require('cors')
-
 const port = '3000'
 const app = express()
 const server = http.Server(app)
-const io = socket(server, { origins: '*:*'})
+const expressWs = require('express-ws')(app);
 app.use(cors())
 
 // coffee endpoint
@@ -62,19 +60,25 @@ app.get('/wstest', (req, res) => {
     res.sendFile(__dirname + '/wstest.html')
 })
 
-io.of('/measurements/live/gravity')
-    .on('connection', (socket) => {
+app.ws('/measurements/live/gravity', (ws, req) => {
         const stream = setInterval(() => {
             const x = randomFloat()
             const y = randomFloat()
             const z = randomFloat()
-            socket.volatile.emit('data', [x, y, z])
+            const data = {
+                x: randomFloat(),
+                y: randomFloat(),
+                z: randomFloat()
+            }
+            ws.send(JSON.stringify(data))
         }, 1000)
-
-        socket.on('disconnect', () => {
+        ws.on('error', () => {
             clearInterval(stream)
         })
-    })
+        ws.on('close', () => {
+            clearInterval(stream)
+        })
+})
 
 function randomFloat() {
     const min=0;
@@ -82,4 +86,4 @@ function randomFloat() {
     return Math.random() * ( +max - +min ) + +min;
 }
 
-server.listen(port, () => console.log(`Mock server listening on port ${port}!`))
+app.listen(port, () => console.log(`Mock server listening on port ${port}!`))
