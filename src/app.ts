@@ -15,7 +15,7 @@ export class App {
         const ws = new WebSocket(`ws://${this.config.get('api.host')}/notifications`);
 
         ws.addEventListener('message', event => {
-            console.log(event.data);
+            console.log(`Notification received: ${event.data}`);
         });
     }
 

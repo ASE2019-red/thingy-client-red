@@ -1,6 +1,7 @@
 import {AureliaConfiguration} from 'aurelia-configuration';
 import {autoinject} from 'aurelia-framework';
 import * as Chart from 'chart.js';
+
 import * as moment from 'moment';
 import {NotificationService} from '../../resources/notification-service';
 
@@ -20,8 +21,16 @@ export class Charts {
         const ws = new WebSocket(`ws://${this.config.get('api.host')}/measurements/live/gravity`);
 
         ws.addEventListener('message', event => {
-            console.log(event.data);
-            this.addData(moment().unix(), event.data);
+            const data = JSON.parse(event.data);
+            const timeData = data.map(x => x.time);
+            const sumX = data.map(x => x.sum_x);
+            const sumY = data.map(x => x.sum_y);
+            const sumZ = data.map(x => x.sum_z);
+
+            this.chart.data.labels = timeData;
+            this.chart.data.datasets[0].data = sumX;
+            this.chart.data.datasets[1].data = sumY;
+            this.chart.data.datasets[2].data = sumZ;
             this.updateScale();
         });
 
@@ -32,21 +41,42 @@ export class Charts {
                 hover: {
                     mode: 'label',
                 },
+                spanGaps: false,
                 scales: {
                     xAxes: [{
                         display: true,
+                        type: 'time',
+                        time: {
+                            unit: 'minute',
+                            // min: minDate,
+                            // max: maxDate,
+                            displayFormats: {
+                                hour: 'HH',
+                                minute: 'HH:mm',
+                                second: 'HH:mm:ss',
+                            },
+                            parser: (date) => {
+                                return moment(date).utcOffset('+0100');
+                            },
+                        },
                         scaleLabel: {
                             display: true,
                         },
                     }],
                 },
+                plugins: {
+                    colorschemes: {
+                        scheme: 'office.Essential6',
+                    },
+                },
             },
             data: {
                 datasets: [
-                    {label: 'line', data: []},
+                    {label: 'x', data: []},
+                    {label: 'y', data: []},
+                    {label: 'z', data: []},
                 ],
             },
-
         });
     }
 
