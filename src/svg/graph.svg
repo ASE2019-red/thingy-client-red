@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 511.46 511.19" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><circle cx="224.55" cy="224.55" r="224.55" fill="#612628"/><g>
+<svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><circle cx="224.55" cy="225.36" r="224.55" fill="#612628"/><g transform="translate(0 .81)">
 	<path d="m501.76 454.65-97.288-97.288c-13.218 17.82-29.012 33.614-46.832 46.832l97.288 97.288c12.933 12.933 33.901 12.933 46.832 0 12.933-12.931 12.933-33.899 0-46.832z" fill="#612628"/>
 	<path d="m224.55 0c-124.02 0-224.55 100.53-224.55 224.55s100.53 224.55 224.55 224.55z" fill="#8f213f"/>
-</g><circle cx="224.55" cy="224.55" r="178.57" fill="#ba8785"/><path d="m224.55 45.976c-98.624 0-178.57 79.95-178.57 178.57s79.949 178.57 178.57 178.57z" fill="#ebdbe1"/><g fill="#612628">
+</g><circle cx="224.55" cy="225.36" r="178.57" fill="#ba8785"/><path d="m224.55 46.786c-98.624 0-178.57 79.95-178.57 178.57s79.949 178.57 178.57 178.57z" fill="#ebdbe1"/><g transform="translate(0 .81)" fill="#612628">
 	<rect x="118.67" y="195.84" width="51.712" height="134.58"/>
 	<rect x="198.7" y="157.26" width="51.712" height="173.17"/>
 	<rect x="278.72" y="118.67" width="51.712" height="211.75"/>
-</g><g fill="#8f213f">
+</g><g transform="translate(0 .81)" fill="#8f213f">
 	<rect x="118.67" y="247.27" width="51.712" height="83.143"/>
 	<rect x="198.7" y="208.7" width="51.712" height="121.73"/>
 	<rect x="278.72" y="170.12" width="51.712" height="160.31"/>
