@@ -1,0 +1,66 @@
+.navbar {
+    justify-content: center;
+
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .nav-item {
+        padding: 1rem;
+        height: 100%;
+
+        &.active .nav-icon, &:hover .nav-icon {
+            opacity: 0.3;
+        }
+
+        .nav-link {
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            min-width: 2.5rem;
+            padding-bottom: 0;
+
+            .nav-icon {
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 100%;
+                height: 3rem;
+                background-position-x: 50%;
+                transition: 0.3s ease-in-out all;
+
+                @include media-breakpoint-up(sm) {
+                    height: 5rem;
+                    width: 5rem;
+                }
+
+                @include media-breakpoint-up(md) {
+                    height: 6rem;
+                    width: 6rem;
+                }
+            }
+            .nav-title {
+                display: none;
+                text-align: center;
+
+                @include media-breakpoint-up(sm) {
+                    display: block;
+                }
+            }
+        }
+    }
+
+}
+
+.nav-coffee {
+    background-image: url(svg/coffee.svg);
+}
+.nav-machine {
+    background-image: url(svg/machine.svg);
+}
+.nav-login {
+    background-image: url(svg/login.svg);
+}
+.nav-graph {
+    background-image: url(svg/graph.svg);
+}

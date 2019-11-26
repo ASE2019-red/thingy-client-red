@@ -1,1 +1,43 @@
-@import "~bootstrap/dist/css/bootstrap.css";
+// @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Cormorant&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oxygen&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+
+
+
+// Your variable overrides
+$font-family-sans-serif:
+  "Fira Sans",
+  // Safari for macOS and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for macOS (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  "Roboto",
+  // Basic web fallback
+  "Helvetica Neue", Arial, sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+// $body-bg: #f5f0f3;
+$body-bg: #faf9f9;
+$body-color: #615b6d;
+
+$theme-colors: (
+  "primary": #8f213f,
+  "light": #faf9f9,
+  "danger": #f44336,
+  "success": #7a914f,
+  "info": #615b6d,
+  "warning": #e09b36
+);
+
+@import "~bootstrap/scss/bootstrap.scss";
+// @import "scss/base";
+@import "scss/navigation";
+
+.container {
+    margin-bottom: 2rem;
+}
