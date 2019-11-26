@@ -25,10 +25,10 @@ export class App {
         this.router = router;
         config.options.pushState = true;
         config.map([
-            { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('routes/coffe-counter/coffee-counter'),
-                nav: true, title: 'Coffe counter', settings: {class: 'nav-coffee'} },
-            { route: 'measurements', name: 'measurements', moduleId: PLATFORM.moduleName('routes/measurement/measurement'),
-                nav: true, title: 'Measurements', settings: {class: 'nav-graph'} },
+            { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('routes/coffee-counter/coffee-counter'),
+                nav: true, title: 'Coffee counter', settings: {class: 'nav-coffee'} },
+            { route: 'charts', name: 'charts', moduleId: PLATFORM.moduleName('routes/charts/charts'),
+                nav: true, title: 'Charts', settings: {class: 'nav-graph'} },
             { route: 'machine', name: 'machine', moduleId: PLATFORM.moduleName('routes/machine/register-machine'),
                 nav: true, title: 'Machines', settings: {class: 'nav-machine'} },
             { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('routes/login/login'),
