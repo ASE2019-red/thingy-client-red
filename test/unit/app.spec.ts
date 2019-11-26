@@ -12,13 +12,13 @@ describe('Application routes', () => {
         const container = new Container().makeGlobal();
         routerConfiguration = container.get(RouterConfiguration);
         router = container.get(Router);
-        app = new App();
+        app = new App(null, null);
         app.configureRouter(routerConfiguration, router);
         configureRouter = router.configure(routerConfiguration);
         routerConfiguration.exportToRouter(router);
     });
 
-    it.each(['home', 'measurements', 'login', 'machines'])('should exist for %s', (rname) => {
+    it.each(['home', 'charts', 'login', 'machines'])('should exist for %s', (rname) => {
         expect(router).not.toBeNull();
         return configureRouter.then(() => {
             const route = router.routes.find((r) => r.name == rname);
