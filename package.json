@@ -15,9 +15,12 @@
     "aurelia-router": "^1.7.1",
     "aurelia-validation": "^1.5.0",
     "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
+    "chart.js": "^2.9.3"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.0",
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.6",
@@ -37,6 +40,7 @@
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "expose-loader": "^0.7.5",
     "express": "^4.17.1",
+    "express-ws": "^4.0.0",
     "file-loader": "^2.0.0",
     "gulp": "^4.0.0",
     "html-loader": "^0.5.5",
@@ -48,8 +52,8 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.4.3",
     "minimatch": "^3.0.4",
+    "moment": "^2.24.0",
     "promise-polyfill": "^8.1.0",
-    "socket.io": "^2.3.0",
     "style-loader": "^0.23.1",
     "sass-loader": "^7.1.0",
     "node-sass": "^4.11.0",

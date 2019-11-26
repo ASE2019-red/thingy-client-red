@@ -102,3 +102,9 @@ typings/
 
 .idea/
 *.iml
+
+src/**/*.js
+src/**/*.js.map
+test/**/*.js
+test/**/*.js.map
+

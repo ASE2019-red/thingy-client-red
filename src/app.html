@@ -1,7 +1,26 @@
 <template>
     <require from="main.scss"></require>
-    <ul repeat.for="nav of router.navigation">
-        <li class="${nav.isActive ? 'active' : ''}"><a href.bind="nav.href">${nav.title}</a></li>
-    </ul>
-    <router-view></router-view>
+
+    <nav class="navbar navbar-expand-sm">
+        <ul class="navbar-nav">
+            <li repeat.for="nav of router.navigation" class="nav-item ${nav.isActive ? 'active' : ''}">
+                <a class="nav-link" href.bind="nav.href">
+                    <i class="nav-icon ${nav.settings.class}"></i>
+                    <span class="nav-title">${nav.title}</label>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+   <div>
+       <ul repeat.for="notifier of notifiers">
+           <li>${notifier}</li>
+       </ul>
+    </div>
+
+    <div class="container container-fluid">
+        <router-view swap-order="with"></router-view>
+    </div>
+
+
 </template>
