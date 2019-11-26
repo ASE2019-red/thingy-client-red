@@ -62,15 +62,13 @@ app.get('/wstest', (req, res) => {
 
 app.ws('/measurements/live/gravity', (ws, req) => {
         const stream = setInterval(() => {
-            const x = randomFloat()
-            const y = randomFloat()
-            const z = randomFloat()
             const data = {
-                x: randomFloat(),
-                y: randomFloat(),
-                z: randomFloat()
+                time: "1970-01-01T00:00:00.000Z",
+                sum_x: randomFloat(),
+                sum_y: randomFloat(),
+                sum_z: randomFloat()
             }
-            ws.send(JSON.stringify(data))
+            ws.send(JSON.stringify([data]))
         }, 1000)
         ws.on('error', () => {
             clearInterval(stream)
