@@ -33,6 +33,10 @@ export class App {
                 nav: true, title: 'Machines', settings: {class: 'nav-machine'} },
             { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('routes/login/login'),
                 nav: true, title: 'Login', settings: {class: 'nav-login'} },
+            { route: 'user', name: 'user', moduleId: PLATFORM.moduleName('routes/user/profile'),
+                nav: true, title: 'User', settings: {class: 'nav-login'} },
+            { route: 'user/register', name: 'register-user', moduleId: PLATFORM.moduleName('routes/user/register-user'),
+                nav: false, title: 'Registration', settings: {class: ''} },
           ]);
     }
 }

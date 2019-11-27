@@ -33,7 +33,7 @@ describe('Login validation', () => {
             .then(async () => {
                 viewModel = tester.viewModel;
                 viewModel.password = '1234';
-                viewModel.username = 'janedoe';
+                viewModel.email = 'janedoe@test.ch';
                 const result = await tester.viewModel.validate();
                 expect(result).toBeTruthy();
             })

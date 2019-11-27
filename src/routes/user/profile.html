@@ -1,0 +1,19 @@
+<template>
+    <h1>${heading}</h1>
+
+    <button click.delegate="getAllUsers()">Get all users</button>
+    <p if.bind="allUsers">${allUsers}</p>
+    <p></p>
+    <template if.bind="users && users.length!==0">
+        <p>To view details of a specific user, click on one:</p>
+        <ul class="list-group">
+            <li repeat.for="user of users" click.delegate="getUser(user.id)"
+                class="list-group-item">
+                ${user.name}
+            </li>
+        </ul>
+    </template>
+    <template if.bind="singleUser && singleUser.length!==0">
+        <p>${singleUser}</p>
+    </template>
+</template>
