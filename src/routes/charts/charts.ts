@@ -1,24 +1,42 @@
 import {AureliaConfiguration} from 'aurelia-configuration';
-import {autoinject} from 'aurelia-framework';
+import {autoinject, observable} from 'aurelia-framework';
+import {ValidationController, ValidationControllerFactory, ValidationRules} from 'aurelia-validation';
 import * as Chart from 'chart.js';
 
 import * as moment from 'moment';
 import {NotificationService} from '../../resources/notification-service';
+import {BootstrapFormRenderer} from '../../resources/validation/bootstrap-form-renderer';
 
 @autoinject
 export class Charts {
-    private heading = 'Charts';
-
+    private controller: ValidationController = null;
     private chartEl: HTMLCanvasElement;
     private chart: Chart;
 
+    // TODO: Validation
+    @observable
+    private offset: string;
+
     constructor(private notificationService: NotificationService,
+                validationControllerFactory: ValidationControllerFactory,
                 protected config: AureliaConfiguration,
                 private maxTicks: number) {
+
+        this.controller = validationControllerFactory.createForCurrentScope();
+        this.controller.addRenderer(new BootstrapFormRenderer());
+
+        const rules = ValidationRules
+            .ensure('name')
+            .required()
+            .rules;
+
+        this.controller.addObject(this, rules);
+        this.offset = '5m';
     }
 
-    public attached() {
-        const ws = new WebSocket(`ws://${this.config.get('api.host')}/measurements/live/gravity`);
+    public offsetChanged(newValue, oldValue) {
+        console.log('offset changed.');
+        const ws = new WebSocket(`ws://${this.config.get('api.host')}/measurements/live/gravity?offset=${this.offset}`);
 
         ws.addEventListener('message', event => {
             const data = JSON.parse(event.data);
@@ -33,6 +51,9 @@ export class Charts {
             this.chart.data.datasets[2].data = sumZ;
             this.updateScale();
         });
+    }
+
+    public attached() {
 
         this.maxTicks = 8;
         this.chart = new Chart(this.chartEl, {
@@ -102,5 +123,13 @@ export class Charts {
             type: 'linear',
         };
         this.chart.update();
+    }
+
+    public validate(): Promise<boolean> {
+        return this.controller.validate().then(result => result.valid);
+    }
+
+    private submit() {
+        this.validate();
     }
 }
