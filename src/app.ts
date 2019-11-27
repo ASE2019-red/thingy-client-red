@@ -21,7 +21,7 @@ export class App {
         });
     }
 
-    private configureRouter(config: RouterConfiguration, router: Router): void {
+    public configureRouter(config: RouterConfiguration, router: Router): void {
         this.router = router;
         config.options.pushState = true;
         config.map([

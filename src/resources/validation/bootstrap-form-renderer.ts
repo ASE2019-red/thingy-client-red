@@ -26,7 +26,7 @@ export class BootstrapFormRenderer {
     }
 
     public add(element: Element, result: ValidateResult) {
-        const formGroup = element.closest(`.${this.groupClass}`);
+        const formGroup = element.parentElement;
         if (!formGroup) {
             return;
         }
@@ -50,7 +50,7 @@ export class BootstrapFormRenderer {
     }
 
     public remove(element: Element, result: ValidateResult) {
-        const formGroup = element.closest(`.${this.groupClass}`);
+        const formGroup = element.parentElement;
         if (!formGroup) {
             return;
         }
