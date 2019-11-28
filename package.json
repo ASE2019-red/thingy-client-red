@@ -9,6 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "aurelia-animator-css": "^1.0.4",
+    "aurelia-auth": "^3.0.5",
+    "aurelia-authentication": "^3.8.3",
     "aurelia-bootstrapper": "^2.3.2",
     "aurelia-configuration": "^2.0.0",
     "aurelia-fetch-client": "^1.8.2",
