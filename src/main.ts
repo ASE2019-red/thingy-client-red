@@ -17,11 +17,10 @@ export function configure(aurelia: Aurelia) {
 
         })
         // based on: https://aurelia.io/blog/2015/08/24/jwt-authentication-in-aurelia/
-        .plugin('aurelia-auth' , baseConfig => {
+        .plugin(PLATFORM.moduleName('aurelia-auth'), baseConfig => {
             baseConfig.configure(authConfig);
         })
         .plugin(PLATFORM.moduleName('aurelia-validation'));
-
 
     aurelia.start().then(() => {
         const config = aurelia.container.get(AureliaConfiguration);
