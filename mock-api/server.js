@@ -43,13 +43,14 @@ app.get('/machine/:machineId/coffee', (req, res) => {
 
 app.post('/machine', (req, res) => {
     const id = Math.random().toString(26).slice(2)
+    console.log(req.body)
     // const name = req.body.name
     // const sensorIdentifier = req.body.sensorIdentifier
     // const maintenanceThreshold = req.body.maintenanceThreshold
     // const active = true
     // const machine = {id, name, sensorIdentifier, active, maintenanceThreshold}
     // machineStore.push(machine)
-    res.send(machine)
+    res.send(id)
 })
 
 app.delete('/machine/:machineId', (req, res) => {

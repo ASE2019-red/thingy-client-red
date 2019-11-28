@@ -1,3 +1,4 @@
+import { json } from 'aurelia-fetch-client';
 import { singleton } from 'aurelia-framework';
 import { Service } from './service';
 
@@ -17,7 +18,11 @@ export class MachineService extends Service {
     public saveMachine(name: string, sensorIdentifier: string, maintenanceThreshold?: number): Promise<Response> {
         const resource = `${MachineService.ENDPOINT}`;
         const body = {name, sensorIdentifier, maintenanceThreshold};
-        return this.http.post(resource, body);
+        console.log(json(body));
+        return this.http.fetch(resource, {
+            method: 'post',
+            body: json(body),
+        });
     }
 
 }
