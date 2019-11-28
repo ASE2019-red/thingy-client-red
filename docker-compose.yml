@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  thingy-client-red:
+    image: thingy-client-red:latest
+    build:
+      context: . # relative to docker-compose.yml
+      dockerfile: Dockerfile
+    ports:
+      - "5050:80"
+    restart: unless-stopped
