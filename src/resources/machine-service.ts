@@ -18,7 +18,6 @@ export class MachineService extends Service {
     public saveMachine(name: string, sensorIdentifier: string, maintenanceThreshold?: number): Promise<Response> {
         const resource = `${MachineService.ENDPOINT}`;
         const body = {name, sensorIdentifier, maintenanceThreshold};
-        console.log(json(body));
         return this.http.fetch(resource, {
             method: 'post',
             body: json(body),
