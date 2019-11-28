@@ -33,6 +33,10 @@ export class RegisterMachine {
     }
 
     private submit() {
-        this.validate();
+        this.validate().then(isValid => {
+            if (isValid) {
+                this.service.saveMachine(this.name, this.sensorIdentifier, this.coffeesBeforeMaintenance);
+            }
+        });
     }
 }
