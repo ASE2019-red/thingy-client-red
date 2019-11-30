@@ -1,7 +1,7 @@
-import { autoinject } from 'aurelia-framework';
-import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
-import { MachineService } from './../../resources/machine-service';
-import { BootstrapFormRenderer } from './../../resources/validation/bootstrap-form-renderer';
+import {autoinject} from 'aurelia-framework';
+import {ValidationController, ValidationControllerFactory, ValidationRules} from 'aurelia-validation';
+import {MachineService} from '../../resources/machine-service';
+import {BootstrapFormRenderer} from '../../resources/validation/bootstrap-form-renderer';
 
 @autoinject
 export class RegisterMachine {
@@ -11,7 +11,7 @@ export class RegisterMachine {
     public coffeesBeforeMaintenance: number;
 
     constructor(validationControllerFactory: ValidationControllerFactory,
-        private service: MachineService) {
+                private service: MachineService) {
 
         this.controller = validationControllerFactory.createForCurrentScope();
         this.controller.addRenderer(new BootstrapFormRenderer());
@@ -32,7 +32,13 @@ export class RegisterMachine {
         return this.controller.validate().then(result => result.valid);
     }
 
-    private submit() {
-        this.validate();
+    private async submit() {
+        if (await this.validate()) {
+            await this.service.addMachine({
+                name: this.name,
+                sensorIdentifier: this.sensorIdentifier,
+                maintenanceThreshold: this.coffeesBeforeMaintenance,
+            });
+        }
     }
 }

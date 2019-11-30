@@ -1,5 +1,6 @@
-import { singleton } from 'aurelia-framework';
-import { Service } from './service';
+import {json} from 'aurelia-fetch-client';
+import {singleton} from 'aurelia-framework';
+import {Service} from './service';
 
 @singleton()
 export class MachineService extends Service {
@@ -14,4 +15,11 @@ export class MachineService extends Service {
         return this.http.fetch(resource);
     }
 
+    public addMachine(machineProperties: any): Promise<Response> {
+        const resource = MachineService.ENDPOINT;
+        return this.http.fetch(resource, {
+            method: 'post',
+            body: json(machineProperties),
+        });
+    }
 }
