@@ -1,0 +1,17 @@
+version: "3"
+
+networks:
+  default:
+    external: false
+
+services:
+  client:
+    image: thingy-api-red
+    build: ./
+    restart: on-failure
+    ports:
+      - 8080:8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    # TODO
+    # env_file: [.env]
