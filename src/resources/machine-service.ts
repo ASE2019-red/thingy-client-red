@@ -15,12 +15,11 @@ export class MachineService extends Service {
         return this.http.fetch(resource);
     }
 
-    public saveMachine(name: string, sensorIdentifier: string, maintenanceThreshold?: number): Promise<Response> {
+    public saveMachine(machine: any): Promise<Response> {
         const resource = `${MachineService.ENDPOINT}`;
-        const body = {name, sensorIdentifier, maintenanceThreshold};
         return this.http.fetch(resource, {
             method: 'post',
-            body: json(body),
+            body: json(machine),
         });
     }
 
