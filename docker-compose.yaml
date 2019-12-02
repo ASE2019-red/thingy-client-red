@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  client:
+    image: ase2019red/thingy-client-red
+    build: ./
+    restart: on-failure
+    ports:
+      - 8080:80
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
