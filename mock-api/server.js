@@ -5,7 +5,13 @@ const port = '3000'
 const app = express()
 const server = http.Server(app)
 const expressWs = require('express-ws')(app);
+const bodyParser = require('body-parser');
 app.use(cors())
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: true }));
+
+// non-persistent store
+const machineStore = require('./mocks/all-machines.json')
 
 // coffee endpoint
 app.get('/coffee', (req, res) => {
@@ -29,7 +35,8 @@ app.delete('/coffee/:coffeeId', (req, res) => {
 
 // machine endpoint
 app.get('/machine', (req, res) => {
-    res.send(require('./mocks/all-machines.json'))
+    console.log(machineStore)
+    res.send(machineStore)
 })
 
 app.get('/machine/:machineId/coffee', (req, res) => {
@@ -38,7 +45,14 @@ app.get('/machine/:machineId/coffee', (req, res) => {
 })
 
 app.post('/machine', (req, res) => {
-    res.sendStatus(204);
+    const id = Math.random().toString(26).slice(2)
+    const name = req.body.name
+    const sensorIdentifier = req.body.sensorIdentifier
+    const maintenanceThreshold = req.body.maintenanceThreshold
+    const active = true
+    const machine = {id, name, sensorIdentifier, active, maintenanceThreshold}
+    machineStore.push(machine)
+    res.send(machine)
 })
 
 app.delete('/machine/:machineId', (req, res) => {

@@ -22,7 +22,7 @@ export class RegisterMachine {
             .ensure('sensorIdentifier')
             .required()
             .ensure('coffeesBeforeMaintenance')
-            .required()
+            .matches(/\d+/)
             .rules;
 
         this.controller.addObject(this, rules);
@@ -32,7 +32,16 @@ export class RegisterMachine {
         return this.controller.validate().then(result => result.valid);
     }
 
-    private submit() {
-        this.validate();
+    private async submit() {
+        if (await this.validate()) {
+            const machine = {
+                name: this.name,
+                sensorIdentifier: this.sensorIdentifier,
+            };
+            if (this.coffeesBeforeMaintenance) {
+                machine['maintenanceThreshold'] = this.coffeesBeforeMaintenance;
+            }
+            await this.service.saveMachine(machine);
+        }
     }
 }
