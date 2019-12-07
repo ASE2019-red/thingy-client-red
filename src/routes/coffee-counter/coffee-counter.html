@@ -1,24 +1,37 @@
 <template>
-    <h1>${heading}</h1>
-    <p>Welcome to the coffee counter!</p>
+    <h2>Consumed coffee</h2>
+    <p>Select a machine and a range of time to see how much coffee was produced</p>
 
-    <button click.delegate="getAllCoffees()">Get all coffees</button>
-    <p if.bind="allCoffees">${allCoffees}</p>
-    <p></p>
-    <button click.delegate="getAllMachines()">Get all machines</button>
-    <p if.bind="allCoffeesOfSpecificMachine">${allCoffeesOfSpecificMachine}</p>
-    <template if.bind="machines.length===0">
-        <p>No machines found.</p>
-    </template>
-    <template if.bind="machines && machines.length!==0">
-        <p>To see the number of produced coffees by a specific machine, click on one:</p>
-        <ul class="list-group">
-            <li repeat.for="machine of machines" click.delegate="getAllCoffeesOfMachine(machine.id)"
-                class="list-group-item">
+    <div class="form-group row">
+        <label for="chartMachineSelect" class="col-sm-2 col-form-label">Machine: </label>
+        <div class="col-sm-4">
+            <select class="form-control" 
+                    id="chartMachineSelect" 
+                    value.bind="selectedChartMachine" 
+                    change.delegate="onSelectedChartMachineChanged(selectedChartMachine)" 
+            >
+                <option model.bind="null">All machines</option>
+                <option repeat.for="machine of machines" model.bind="machine.id">
                 ${machine.name}
-            </li>
-        </ul>
-    </template>
+                </option>
+            </select>
+        </div>
+        <label for="chartTimeModeSelect" class="col-sm-2 col-form-label">timerange: </label>
+        <div class="col-sm-4">
+            <select class="form-control" 
+                    id="chartTimeModeSelect" 
+                    value.bind="selectedChartTimeMode" 
+                    change.delegate="onSelectedChartTimeModeChange(selectedChartTimeMode)" 
+            >
+                <option repeat.for="mode of chartTimeModes" model.bind="mode.value">
+                ${mode.text}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="alert alert-info" role="alert">
+        ${consumptionMessage}<strong>${producedInSelection}</strong>
+    </div>
     <div>
         <canvas ref="chartEl" style="width: 100%; height:400px;"></canvas>
     </div>
