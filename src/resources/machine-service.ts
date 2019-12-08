@@ -10,7 +10,7 @@ export class MachineService extends Service {
         return this.http.fetch(MachineService.ENDPOINT);
     }
 
-    public getCoffeeCount(machineId: string): Promise<Response> {
+    public getCoffees(machineId: string): Promise<Response> {
         const resource = `${MachineService.ENDPOINT}/${machineId}/coffee`;
         return this.http.fetch(resource);
     }
