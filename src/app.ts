@@ -29,8 +29,12 @@ export class App {
                 nav: true, title: 'Coffee counter', settings: {class: 'nav-coffee'} },
             { route: 'charts', name: 'charts', moduleId: PLATFORM.moduleName('routes/charts/charts'),
                 nav: true, title: 'Charts', settings: {class: 'nav-graph'} },
-            { route: 'machine', name: 'machine', moduleId: PLATFORM.moduleName('routes/machine/register-machine'),
+            { route: 'machine', name: 'machine', moduleId: PLATFORM.moduleName('routes/machine/manage-machines'),
                 nav: true, title: 'Machines', settings: {class: 'nav-machine'} },
+            { route: 'machine/register', name: 'register', moduleId: PLATFORM.moduleName('routes/machine/register-machine'),
+                nav: false, title: 'Register Machines' },
+            { route: 'machine/calibrate/:id', name: 'calibrate', moduleId: PLATFORM.moduleName('routes/machine/machine-calibration'),
+                nav: false, title: 'Calibrate Machine' },
             { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('routes/login/login'),
                 nav: true, title: 'Login', settings: {class: 'nav-login'} },
           ]);

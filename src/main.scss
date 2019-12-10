@@ -35,9 +35,58 @@ $theme-colors: (
 );
 
 @import "~bootstrap/scss/bootstrap.scss";
-// @import "scss/base";
 @import "scss/navigation";
 
 .container {
     margin-bottom: 2rem;
+}
+
+.component {
+    margin-top: 2rem;
+    &-inner {
+        margin-top: 1rem;
+    }
+}
+
+.machine-register, .machine-list {
+    &.accordion > .card {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    .card {
+        background-color: inherit;
+    }
+    .card-header.btn {
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+
+        h5 {
+            display: inline;
+        }
+    }
+}
+
+
+.machine-state {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+}
+
+.state-ok {
+    padding-right: 1rem;
+    font-size: 1.5em;
+}
+
+.warn {
+    color: var(--warning);
+}
+.ok {
+    color: var(--success);
+}
+.error {
+    color: var(--danger);
 }

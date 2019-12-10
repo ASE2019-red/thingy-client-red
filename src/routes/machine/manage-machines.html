@@ -1,0 +1,52 @@
+<template>
+    <require from="./machine-state"></require>
+    <require from="./machine-state-single.html"></require>
+
+    <h2>Manage Machines</h2>
+    <div class="component" id="machine-register">
+        <button class="btn btn-primary" id="heading-register"
+            type="button" click.delegate="router.navigate('machine/register')">Add Machine</button>
+    </div>
+
+    <div class="component accordion machine-list" id="machine-list">
+        <h3>Registered Machines</h3>
+        <div repeat.for="machine of machines" class="component-inner card">
+            <button class="card-header btn" id="heading-${$index}"
+            type="button" data-toggle="collapse" data-target="#collapse-${$index}"
+            aria-expanded="false" aria-controls="collapse-${$index}">
+                <h5>${machine.name}</h5>
+                <machine-state active.to-view="machine.active"></machine-state>
+            </button>
+
+            <div id="collapse-${$index}" class="collapse" aria-labelledby="heading-${$index}" data-parent="#machine-list">
+                <div class="card-body container">
+                    <div class="row">
+                        <div class="col">
+                            Machine ID:<br>
+                            ${machine.id}
+                        </div>
+                        <div class="col">
+                            <machine-state-single ok=""></machine-state-single> Active
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Sensor ID:<br>
+                            ${machine.sensorIdentifier}
+                        </div>
+                        <div class="col">
+                            <machine-state-single ok="'true'"></machine-state-single> Calibrated
+                        </div>
+                    </div>
+                    <div class="component">
+                        You may calibrate or re-calibrate the coffee detection for this machine.
+                        <div>
+                            <button class="btn btn-primary component-inner" type="button"
+                            click.delegate="viewCalibration(machine.id)">Start calibration</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

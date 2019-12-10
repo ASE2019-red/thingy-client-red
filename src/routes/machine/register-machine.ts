@@ -1,3 +1,4 @@
+import { json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { MachineService } from './../../resources/machine-service';
@@ -26,6 +27,13 @@ export class RegisterMachine {
             .rules;
 
         this.controller.addObject(this, rules);
+    }
+
+    public attached() {
+        this.service.getAll().then(async response => {
+            const machines = await response.json();
+            console.log(machines);
+        });
     }
 
     public validate(): Promise<boolean> {
