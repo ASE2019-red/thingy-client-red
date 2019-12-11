@@ -29,13 +29,6 @@ export class RegisterMachine {
         this.controller.addObject(this, rules);
     }
 
-    public attached() {
-        this.service.getAll().then(async response => {
-            const machines = await response.json();
-            console.log(machines);
-        });
-    }
-
     public validate(): Promise<boolean> {
         return this.controller.validate().then(result => result.valid);
     }
