@@ -92,6 +92,34 @@ app.ws('/measurements/live/gravity', (ws, req) => {
         })
 })
 
+app.ws('/machine/calibration', (ws, req) => {
+
+    setTimeout(() => {
+        ws.close(1000, 'timeout');
+    }, 31000)
+
+    ws.on('message', msg => {
+        const data = JSON.parse(msg);
+        if (!data['id']) {
+            ws.close(1008, 'No machine specified.')
+        }
+        const machineExists = machineStore.find(m => m.id == data['id'])
+        if (machineExists) {
+            const answer = {calibrating: true, limit: 30}
+            ws.send(JSON.stringify(answer))
+        } else {
+            ws.close(1008, 'Machine does not exist.')
+        }
+    })
+    ws.on('error', () => {
+        console.log('error: calibration aborted')
+    })
+    ws.on('close', (event) => {
+        console.log(event)
+        console.log(`calibration aborted: ${event.reason}`)
+    })
+})
+
 function randomFloat() {
     const min=0;
     const max=5;

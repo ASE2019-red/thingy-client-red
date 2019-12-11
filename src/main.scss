@@ -67,18 +67,20 @@ $theme-colors: (
 }
 
 
-.machine-state {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
-    font-size: 1.5em;
-}
+.state {
+    &-summary {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        font-size: 1.5em;
+    }
 
-.state-ok {
-    padding-right: 1rem;
-    font-size: 1.5em;
+    &-single {
+        padding-right: 1rem;
+        font-size: 1.5em;
+    }
 }
 
 .warn {

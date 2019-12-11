@@ -1,6 +1,5 @@
 <template>
     <require from="./machine-state"></require>
-    <require from="./machine-state-single.html"></require>
 
     <h2>Manage Machines</h2>
     <div class="component" id="machine-register">
@@ -15,7 +14,8 @@
             type="button" data-toggle="collapse" data-target="#collapse-${$index}"
             aria-expanded="false" aria-controls="collapse-${$index}">
                 <h5>${machine.name}</h5>
-                <machine-state active.to-view="machine.active"></machine-state>
+                <machine-state active.to-view="machine.active"
+                    calibrated.to-view="machine.calibrated" summary.to-view="true"></machine-state>
             </button>
 
             <div id="collapse-${$index}" class="collapse" aria-labelledby="heading-${$index}" data-parent="#machine-list">
@@ -26,7 +26,7 @@
                             ${machine.id}
                         </div>
                         <div class="col">
-                            <machine-state-single ok=""></machine-state-single> Active
+                            <machine-state active.to-view="machine.active" summary.to-view="false"></machine-state> Active
                         </div>
                     </div>
                     <div class="row">
@@ -35,7 +35,7 @@
                             ${machine.sensorIdentifier}
                         </div>
                         <div class="col">
-                            <machine-state-single ok="'true'"></machine-state-single> Calibrated
+                            <machine-state calibrated.to-view="machine.calibrated" summary.to-view="false"></machine-state> Calibrated
                         </div>
                     </div>
                     <div class="component">

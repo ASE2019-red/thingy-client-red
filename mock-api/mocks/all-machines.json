@@ -1,7 +1,8 @@
 [
   {
-    "id": 0,
+    "id": "0",
     "name": "coffee machine",
-    "active": true
+    "active": true,
+    "calibrated": false
   }
 ]
