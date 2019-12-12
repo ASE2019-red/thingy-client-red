@@ -25,7 +25,7 @@
     "mock": false,
     "api": {
       "ssl": false,
-      "host": "localhost:8000",
+      "host": "51.15.233.22:8000",
       "apiBase": "/"
     }
   }
