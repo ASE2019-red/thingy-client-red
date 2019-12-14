@@ -22,45 +22,19 @@ export class Login {
         this.controller = validationControllerFactory.createForCurrentScope();
         this.controller.addRenderer(new BootstrapFormRenderer());
 
-        const rules = ValidationRules
-            .ensure('password')
-            .required()
-            .ensure('email')
-            .required()
-            .rules;
-
-        this.controller.addObject(this, rules);
-
         this.router = router;
 
         this.authService = authService;
     }
 
-    public validate(): Promise<boolean> {
-        return this.controller.validate().then(result => result.valid);
-    }
+    public activate() {
 
-    public submit() {
-        this.validate();
-        let jsonData = {
-            "email": this.email,
-            "psw": this.password
-        };
-        this.authService.login(jsonData)
+        this.authService.logout()
             .then(response => {
-                console.log("Sucessfully logged in with response: " + response);
-                this.correctLogin = true;
-
+                console.log("Sucessfuly logged out.");
             }).catch(error => {
-                this.correctLogin = false;
-                console.log("Failed to login. See error below:");
+                console.log("Failed to logout. See error below:");
                 console.log(error);
-            });
-    }
-
-    public attached() {
-        // Remove the navigation bar on the login view
-        let navBar = document.getElementById("navigation-bar");
-        navBar.parentNode.removeChild(navBar);
+            })
     }
 }

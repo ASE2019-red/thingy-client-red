@@ -188,7 +188,8 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
     }),
     new ModuleDependenciesPlugin({
       'aurelia-testing': ['./compile-spy', './view-spy'],
-      'aurelia-auth': ['./auth-filter']
+      //'aurelia-auth': ['./auth-filter']
+      'aurelia-authentication': ['./authFilterValueConverter']
     }),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
