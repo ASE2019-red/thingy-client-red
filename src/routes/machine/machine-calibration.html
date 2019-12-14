@@ -1,0 +1,57 @@
+<template>
+    <h2>Calibrate - ${id}</h2>
+    <div class="component">
+        <p>
+        Follow the instructions below to calibrate the detectors for this machine.
+        <strong>Calibration is optional</strong> but you may experience better coffee detection precision.
+        </p>
+        <div class="alert alert-info" role="alert">
+            The calibration process is limited to <strong>${limit}s</strong>. If your machine takes longer to brew a coffee,
+            try to capture the period where the machine is the most active.
+        </div>
+        <ol>
+            <li>
+                Turn on your coffee machine and let it heat up.
+            </li>
+            <li>
+                Place the Thingy on the coffee machine.
+            </li>
+            <li>
+                When ready, start the machine and immediately press the start button.
+            </li>
+            <li>
+                Press the finish button when the coffee has been poured. Or press the abort button to cancel the calibration.
+            </li>
+        </ol>
+    </div>
+
+    <div if.bind="alert.show" class="alert alert-${alert.level} component" role="alert">
+        ${alert.text}
+    </div>
+
+    <div class="component">
+        <button if.bind="!calibrating && !success.show" class="btn btn-primary" type="button" click.delegate="start()">
+            <span if.bind="starting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            ${btnMsg}
+        </button>
+        <div if.bind="calibrating || success.show" class="card">
+            <h5 class="card-header">Calibration progress</h5>
+            <div class="card-body">
+                <h5 if.bind="success.show" class="card-title text-success">${success.text}</h5>
+                <div if.bind="calibrating" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                        aria-valuenow="${currentProgress}" aria-valuemin="0" aria-valuemax="${limit}"
+                        style="width: ${progressPercent}%"></div>
+                </div>
+                <div if.bind="calibrating" class="component-inner">
+                    <button href="#" class="btn btn-primary" click.delegate="finish()">Finish calibration</button>
+                    <button href="#" class="btn btn-secondary float-right" click.delegate="abort()">Abort</button>
+                </div>
+                <div if.bind="success.show" class="component-inner">
+                    <a href="/machine" class="btn btn-success">Great!</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

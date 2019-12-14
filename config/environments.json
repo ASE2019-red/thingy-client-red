@@ -22,6 +22,11 @@
   "production": {
     "debug": false,
     "testing": false,
-    "mock": false
+    "mock": false,
+    "api": {
+      "ssl": false,
+      "host": "51.15.233.22:8000",
+      "apiBase": "/"
+    }
   }
 }

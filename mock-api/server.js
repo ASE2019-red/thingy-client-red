@@ -7,12 +7,14 @@ const server = http.Server(app)
 const expressWs = require('express-ws')(app);
 const bodyParser = require('body-parser');
 
-const JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOTFiYTZlZmQtMmU1NC00NTA3LTkzNmYtMDZmNmNhYmM3MGU4IiwibmFtZSI6IlVzZXIgMSIsImVtYWlsIjoidXNlcjFAdGVzdC5jaCJ9LCJpYXQiOjE1NzYxMDM0Mzl9.bgipOg3tC25ydggOqdAUPIGPLR0Jbvsy5y23fYZzctg";
-const users = require('./mocks/all-users.json');
-
 app.use(cors())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }));
+
+// non-persistent store
+const machineStore = require('./mocks/all-machines.json')
+const users = require('./mocks/all-users.json');
+const JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOTFiYTZlZmQtMmU1NC00NTA3LTkzNmYtMDZmNmNhYmM3MGU4IiwibmFtZSI6IlVzZXIgMSIsImVtYWlsIjoidXNlcjFAdGVzdC5jaCJ9LCJpYXQiOjE1NzYxMDM0Mzl9.bgipOg3tC25ydggOqdAUPIGPLR0Jbvsy5y23fYZzctg";
 
 // coffee endpoint
 app.get('/coffee', (req, res) => {
@@ -36,7 +38,8 @@ app.delete('/coffee/:coffeeId', (req, res) => {
 
 // machine endpoint
 app.get('/machine', (req, res) => {
-    res.send(require('./mocks/all-machines.json'))
+    console.log(machineStore)
+    res.send(machineStore)
 })
 
 app.get('/machine/:machineId/coffee', (req, res) => {
@@ -45,7 +48,14 @@ app.get('/machine/:machineId/coffee', (req, res) => {
 })
 
 app.post('/machine', (req, res) => {
-    res.sendStatus(204);
+    const id = Math.random().toString(26).slice(2)
+    const name = req.body.name
+    const sensorIdentifier = req.body.sensorIdentifier
+    const maintenanceThreshold = req.body.maintenanceThreshold
+    const active = true
+    const machine = {id, name, sensorIdentifier, active, maintenanceThreshold}
+    machineStore.push(machine)
+    res.send(machine)
 })
 
 app.delete('/machine/:machineId', (req, res) => {
@@ -133,6 +143,34 @@ app.ws('/measurements/live/gravity', (ws, req) => {
         ws.on('close', () => {
             clearInterval(stream)
         })
+})
+
+app.ws('/machine/calibration', (ws, req) => {
+
+    setTimeout(() => {
+        ws.close(1000, 'timeout');
+    }, 31000)
+
+    ws.on('message', msg => {
+        const data = JSON.parse(msg);
+        if (!data['id']) {
+            ws.close(1008, 'No machine specified.')
+        }
+        const machineExists = machineStore.find(m => m.id == data['id'])
+        if (machineExists) {
+            const answer = {calibrating: true, limit: 30}
+            ws.send(JSON.stringify(answer))
+        } else {
+            ws.close(1008, 'Machine does not exist.')
+        }
+    })
+    ws.on('error', () => {
+        console.log('error: calibration aborted')
+    })
+    ws.on('close', (event) => {
+        console.log(event)
+        console.log(`calibration aborted: ${event.reason}`)
+    })
 })
 
 function randomFloat() {
