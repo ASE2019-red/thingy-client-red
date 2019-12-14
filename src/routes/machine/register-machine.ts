@@ -1,3 +1,4 @@
+import { json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { MachineService } from './../../resources/machine-service';
