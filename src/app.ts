@@ -4,7 +4,7 @@ import {Router, RouterConfiguration} from 'aurelia-router';
 import 'popper.js';
 import 'bootstrap';
 
-const NOTIFICATION_TIMEOUT = 5000;
+const NOTIFICATION_TIMEOUT = 10000;
 @autoinject
 export class App {
     private router: Router;
@@ -15,9 +15,8 @@ export class App {
 
     public attached(owningView, myView): void {
         const ws = new WebSocket(`ws://${this.config.get('api.host')}/notifications`);
-
         ws.addEventListener('message', event => {
-            const notification = JSON.parse(event.data)
+            const notification = JSON.parse(event.data);
             this.notifications.push(notification);
             setTimeout(() => {
                 this.notifications = this.notifications.filter(n => n !== notification);
