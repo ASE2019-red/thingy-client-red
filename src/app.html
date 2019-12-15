@@ -12,15 +12,27 @@
         </ul>
     </nav>
 
-   <div>
-       <ul repeat.for="notifier of notifiers">
-           <li>${notifier}</li>
-       </ul>
+    <div class="notification-container">
+        <template repeat.for="notification of notifications">
+            <div class="notification">
+                <img src="svg/coffee.svg" class="notification-icon"></img>
+                <div class="notification-text">
+                    <div class="notification-title">
+                        New coffee produced!
+                    </div>
+                    <div class="notification-hint">
+                        By machine ${notification.machine.name}
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
 
     <div class="container container-fluid">
         <router-view swap-order="with"></router-view>
     </div>
+
+
 
 
 </template>

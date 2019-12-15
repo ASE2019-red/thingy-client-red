@@ -1,22 +1,28 @@
 import {AureliaConfiguration} from 'aurelia-configuration';
 import {autoinject, PLATFORM} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
-import {NotificationService} from './resources/notification-service';
 import 'popper.js';
 import 'bootstrap';
 
+const NOTIFICATION_TIMEOUT = 5000;
 @autoinject
 export class App {
     private router: Router;
-    private notifiers: any[];
+    private notifications: any[] = [];
 
-    constructor(private notificationService: NotificationService, protected config: AureliaConfiguration) {
+    constructor(protected config: AureliaConfiguration) {
     }
 
     public attached(owningView, myView): void {
         const ws = new WebSocket(`ws://${this.config.get('api.host')}/notifications`);
 
         ws.addEventListener('message', event => {
+            const notification = JSON.parse(event.data)
+            this.notifications.push(notification);
+            setTimeout(() => {
+                this.notifications = this.notifications.filter(n => n !== notification);
+                console.log('Notification removed');
+            }, NOTIFICATION_TIMEOUT);
             console.log(`Notification received: ${event.data}`);
         });
     }

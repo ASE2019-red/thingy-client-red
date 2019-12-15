@@ -4,7 +4,6 @@ import {ValidationController, ValidationControllerFactory, ValidationRules} from
 import * as Chart from 'chart.js';
 
 import * as moment from 'moment';
-import {NotificationService} from '../../resources/notification-service';
 import {BootstrapFormRenderer} from '../../resources/validation/bootstrap-form-renderer';
 
 @autoinject
@@ -17,8 +16,7 @@ export class Charts {
     @observable
     private offset: string;
 
-    constructor(private notificationService: NotificationService,
-                validationControllerFactory: ValidationControllerFactory,
+    constructor(validationControllerFactory: ValidationControllerFactory,
                 protected config: AureliaConfiguration,
                 private maxTicks: number) {
 
