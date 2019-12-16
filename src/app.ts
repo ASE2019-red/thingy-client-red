@@ -46,8 +46,8 @@ export class App {
                 nav: false, title: 'Login', settings: {class: 'nav-login'} },
             { route: 'logout', name: 'logout', moduleId: PLATFORM.moduleName('routes/login/logout'),
                 nav: true, title: 'Logout', settings: {class: 'nav-login'}, auth: true },
-            { route: 'user', name: 'user', moduleId: PLATFORM.moduleName('routes/user/profile'),
-                nav: true, title: 'User', settings: {class: 'nav-login'}, auth: true },
+            // { route: 'user', name: 'user', moduleId: PLATFORM.moduleName('routes/user/profile'),
+            //     nav: true, title: 'User', settings: {class: 'nav-login'}, auth: true },
             { route: 'user/register', name: 'register-user', moduleId: PLATFORM.moduleName('routes/user/register-user'),
                 nav: false, title: 'Registration', settings: {class: ''} },
           ]);
