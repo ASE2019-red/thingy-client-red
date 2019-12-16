@@ -12,7 +12,7 @@ describe('Application routes', () => {
         const container = new Container().makeGlobal();
         routerConfiguration = container.get(RouterConfiguration);
         router = container.get(Router);
-        app = new App(null, null);
+        app = new App(null);
         app.configureRouter(routerConfiguration, router);
         configureRouter = router.configure(routerConfiguration);
         routerConfiguration.exportToRouter(router);

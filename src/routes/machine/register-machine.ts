@@ -1,4 +1,3 @@
-import { json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { MachineService } from './../../resources/machine-service';
@@ -10,6 +9,12 @@ export class RegisterMachine {
     public name: string;
     public sensorIdentifier: string;
     public coffeesBeforeMaintenance: number;
+    public alert = {
+        show: false,
+        level: 'warning',
+        text: '',
+        btn: false,
+    };
 
     constructor(validationControllerFactory: ValidationControllerFactory,
         private service: MachineService) {
@@ -42,7 +47,18 @@ export class RegisterMachine {
             if (this.coffeesBeforeMaintenance) {
                 machine['maintenanceThreshold'] = this.coffeesBeforeMaintenance;
             }
-            await this.service.saveMachine(machine);
+            const response = await this.service.saveMachine(machine);
+            if (response.ok) {
+                this.alert.text = 'Machine registered successfully';
+                this.alert.level = 'success';
+                this.alert.btn = true;
+                this.alert.show = true;
+            } else {
+                this.alert.text = `${response.status} - ${response.statusText}`;
+                this.alert.level = 'danger';
+                this.alert.btn = false;
+                this.alert.show = true;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import { MachineService } from 'resources/machine-service';
 import { MeasurementService } from 'resources/measurement-service';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { AureliaConfiguration } from 'aurelia-configuration';
 
 type ChartTimeMode = 'day' | 'week' | 'month' | 'year';
 @autoinject
@@ -35,7 +36,8 @@ export class CoffeeCounter {
             this.machines.find(m => m.id === this.selectedChartMachine).name;
     }
 
-    constructor(private coffeeService: CoffeeService,
+    constructor(protected config: AureliaConfiguration,
+        private coffeeService: CoffeeService,
         private machineService: MachineService,
         private measurementService: MeasurementService) {
         this.refreshChart();
@@ -119,6 +121,11 @@ export class CoffeeCounter {
     }
 
     public attached() {
+        this.generateChart();
+        this.connectWebsocket();
+    }
+
+    private generateChart() {
         this.chart = new Chart(this.chartEl, {
             type: 'bar',
             options: {
@@ -155,6 +162,14 @@ export class CoffeeCounter {
                 },
             },
             data: this.data,
+        });
+    }
+
+    private connectWebsocket() {
+        const ws = new WebSocket(`ws://${this.config.get('api.host')}/notifications`);
+
+        ws.addEventListener('message', event => {
+            this.refreshChart();
         });
     }
 
