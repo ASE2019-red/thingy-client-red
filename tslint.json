@@ -28,8 +28,9 @@
     "radix": false,
     "no-unused-expression": false,
     "interface-name": false,
-    "align": false
+    "align": false,
+    "curly": false,
+    "trailing-comma": false
   },
-  "rulesDirectory": [],
-  "curly": false
+  "rulesDirectory": []
 }
