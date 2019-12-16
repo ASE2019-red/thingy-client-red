@@ -1,5 +1,6 @@
 import { AureliaConfiguration } from 'aurelia-configuration';
 import { autoinject } from 'aurelia-framework';
+import { MachineService } from './../../resources/machine-service';
 
 @autoinject
 export class MachineCalibration {
@@ -25,7 +26,7 @@ export class MachineCalibration {
         text: 'Calibration successfully finished.'
     };
 
-    constructor(private config: AureliaConfiguration) {}
+    constructor(private config: AureliaConfiguration, private service: MachineService) {}
 
     public activate(params, routeConfig, navigationInstruction) {
         this.id = params.id;
@@ -36,6 +37,23 @@ export class MachineCalibration {
         if (!!this.ws) {
             this.ws.close();
         }
+    }
+
+    public resetCalibration() {
+        const update = {
+            id: this.id,
+            calibrated: false
+         };
+        this.service.updateMachine(update).then(async response => {
+            if (response.ok) {
+                this.success.text = 'Calibration reset successfully.';
+                this.success.show = true;
+            } else {
+                this.alert.text = `${response.status} - ${response.statusText}`;
+                this.alert.level = 'danger';
+                this.alert.show = true;
+            }
+        });
     }
 
     public start() {

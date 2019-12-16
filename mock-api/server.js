@@ -58,6 +58,31 @@ app.post('/machine', (req, res) => {
     res.send(machine)
 })
 
+app.put('/machine', (req, res) => {
+    const body = req.body;
+    if (!body.id) {
+        res.status(400).send('Invalid ID supplied');
+        return
+    }
+    const index = machineStore.findIndex(m => m.id == body['id'])
+    const machine = machineStore[index]
+    if (!machine) {
+        res.status(404).send('Machine not found');
+        return
+    }
+    if (body.maintenanceThreshold) machine.maintenanceThreshold = body.maintenanceThreshold;
+    if (body.name) machine.name = body.name;
+    if (body.active === true) machine.active = true;
+    else if (body.active === false) machine.active = false;
+    if (body.calibrated === false) machine.calibrated = false;
+    if (body.calibrated === true) {
+        res.status(400).send('Cannot enable calibration.')
+        return
+    }
+    machineStore[index] = machine;
+    res.status(200).send(machine)
+})
+
 app.delete('/machine/:machineId', (req, res) => {
     res.sendStatus(204);
 })

@@ -3,7 +3,9 @@
     <div class="component">
         <p>
         Follow the instructions below to calibrate the detectors for this machine.
-        <strong>Calibration is optional</strong> but you may experience better coffee detection precision.
+        <strong>Calibration is optional</strong>. It is recommended to try the
+        coffee detector without calibration first. If you encounter issues with the
+        detection, calibration of the sensors may help.
         </p>
         <div class="alert alert-info" role="alert">
             The calibration process is limited to <strong>${limit}s</strong>. If your machine takes longer to brew a coffee,
@@ -17,7 +19,7 @@
                 Place the Thingy on the coffee machine.
             </li>
             <li>
-                When ready, start the machine and immediately press the start button.
+                When ready, start the machine and press the start button.
             </li>
             <li>
                 Press the finish button when the coffee has been poured. Or press the abort button to cancel the calibration.
@@ -30,10 +32,16 @@
     </div>
 
     <div class="component">
-        <button if.bind="!calibrating && !success.show" class="btn btn-primary" type="button" click.delegate="start()">
-            <span if.bind="starting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ${btnMsg}
-        </button>
+        <div if.bind="!calibrating && !success.show">
+            <button class="btn btn-primary" type="button" click.delegate="start()">
+                <span if.bind="starting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                ${btnMsg}
+            </button>
+            <button class="btn btn-secondary float-right"
+                click.delegate="resetCalibration()">
+                Reset calibration
+             </button>
+        </div>
         <div if.bind="calibrating || success.show" class="card">
             <h5 class="card-header">Calibration progress</h5>
             <div class="card-body">

@@ -23,4 +23,12 @@ export class MachineService extends Service {
         });
     }
 
+    public updateMachine(partial: any): Promise<Response> {
+        const resource = `${MachineService.ENDPOINT}`;
+        return this.http.fetch(resource, {
+            method: 'put',
+            body: json(partial),
+        });
+    }
+
 }

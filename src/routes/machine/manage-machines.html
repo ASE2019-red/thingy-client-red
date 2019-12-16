@@ -39,10 +39,14 @@
                         </div>
                     </div>
                     <div class="component">
-                        You may calibrate or re-calibrate the coffee detection for this machine.
-                        <div>
-                            <button class="btn btn-primary component-inner" type="button"
-                            click.delegate="viewCalibration(machine.id)">Start calibration</button>
+                        Manage the sensor calibration or re-activate/deactivate the machine.
+                        <div class="component-inner">
+                            <button class="btn btn-primary" type="button"
+                                click.delegate="viewCalibration(machine.id)">Manage calibration</button>
+                            <button class="btn btn-secondary float-right"
+                                click.delegate="changeActivation(machine)">
+                                ${machine.active === true ? 'Deactivate' : 'Activate'}
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -4,5 +4,11 @@
     "name": "coffee machine",
     "active": true,
     "calibrated": false
+  },
+  {
+    "id": "1234",
+    "name": "another machine",
+    "active": false,
+    "calibrated": true
   }
 ]
