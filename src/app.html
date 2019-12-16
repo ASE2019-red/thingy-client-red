@@ -1,7 +1,7 @@
 <template>
     <require from="main.scss"></require>
 
-    <nav class="navbar navbar-expand-sm">
+    <nav id="navigation-bar" class="navbar navbar-expand-sm">
         <ul class="navbar-nav">
             <li repeat.for="nav of router.navigation" class="nav-item ${nav.isActive ? 'active' : ''}">
                 <a class="nav-link" href.bind="nav.href">

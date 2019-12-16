@@ -2,6 +2,17 @@ import { AureliaConfiguration } from 'aurelia-configuration';
 import { Aurelia, LogManager } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 
+const authConfig = {
+    signupUrl: "user",
+    loginOnSignup : true,
+    signupRedirect : "/",
+    loginUrl: "login",
+    loginRedirect: "/",
+    logoutRedirect: "login",
+    expiredReload : 1,
+    tokenName: "token"
+}
+
 export function configure(aurelia: Aurelia) {
     aurelia.use
         .standardConfiguration()
@@ -14,6 +25,7 @@ export function configure(aurelia: Aurelia) {
             config.setEnvironment(env);
 
         })
+        .plugin(PLATFORM.moduleName('aurelia-authentication'), authConfig)
         .plugin(PLATFORM.moduleName('aurelia-validation'));
 
     aurelia.start().then(() => {

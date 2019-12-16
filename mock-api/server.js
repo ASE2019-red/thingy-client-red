@@ -6,12 +6,15 @@ const app = express()
 const server = http.Server(app)
 const expressWs = require('express-ws')(app);
 const bodyParser = require('body-parser');
+
 app.use(cors())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({ extended: true }));
 
 // non-persistent store
 const machineStore = require('./mocks/all-machines.json')
+const users = require('./mocks/all-users.json');
+const JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOTFiYTZlZmQtMmU1NC00NTA3LTkzNmYtMDZmNmNhYmM3MGU4IiwibmFtZSI6IlVzZXIgMSIsImVtYWlsIjoidXNlcjFAdGVzdC5jaCJ9LCJpYXQiOjE1NzYxMDM0Mzl9.bgipOg3tC25ydggOqdAUPIGPLR0Jbvsy5y23fYZzctg";
 
 // coffee endpoint
 app.get('/coffee', (req, res) => {
@@ -57,6 +60,56 @@ app.post('/machine', (req, res) => {
 
 app.delete('/machine/:machineId', (req, res) => {
     res.sendStatus(204);
+})
+
+// user endpoint
+app.get('/user', (req, res) => {
+    res.send(users)
+})
+
+app.get('/user/:userId', (req, res) => {
+    const userId = parseInt(req.params['userId'])
+    const user = users[userId];
+    res.send(user)
+})
+
+app.post('/user', (req, res) => {
+    let user = {
+        "id": users.length,
+        "name": req.body.name,
+        "email": req.body.email,
+        "hashedPassword": req.body.psw,
+        "active": true,
+        "machines": []
+    };
+    users.push(user);
+    user["token"]=JWT_TOKEN;
+    res.send(user);
+})
+
+app.delete('/user/:userId', (req, res) => {
+    res.sendStatus(204);
+})
+
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.psw;
+    let user;
+    for (let el of users) {
+        if (el.email == email) {
+            user = el;
+            break;
+        }
+    }
+    if (user.hashedPassword === password) {
+        user["token"]=JWT_TOKEN;
+        console.log("Login user:", user);
+        res.send(user);
+    }
+    else {
+        res.statusMessage = "Authentication failed";
+        res.sendStatus(401);
+    }
 })
 
 // measurements endpoint

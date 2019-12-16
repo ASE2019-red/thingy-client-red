@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "name": "User 0",
+    "email": "user0@test.ch",
+    "hashedPassword": "0",
+    "active": true,
+    "machines": []
+  },
+  {
+    "id": 1,
+    "name": "User 1",
+    "email": "user1@test.ch",
+    "hashedPassword": "1",
+    "active": true,
+    "machines": []
+  },
+  {
+    "id": 2,
+    "name": "User 2",
+    "email": "user2@test.ch",
+    "hashedPassword": "2",
+    "active": true,
+    "machines": []
+  }
+]

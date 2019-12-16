@@ -3,7 +3,6 @@ import { PLATFORM } from 'aurelia-pal';
 import { ComponentTester, StageComponent } from 'aurelia-testing';
 import { MachineService } from 'resources/machine-service';
 import { RegisterMachine } from './../../src/routes/machine/register-machine';
-import { configure } from './shared';
 
 export class MockMachineService {}
 
@@ -20,9 +19,10 @@ describe('Register machine validation', () => {
             .boundTo({});
 
         tester.bootstrap(aurelia => {
+            const framework =  aurelia.use.standardConfiguration()
+                .plugin(PLATFORM.moduleName('aurelia-validation'));
             aurelia.container.registerInstance(MachineService, service);
-
-            return configure(aurelia);
+            return framework;
         });
     });
 
