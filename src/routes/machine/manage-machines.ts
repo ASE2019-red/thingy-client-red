@@ -1,5 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import * as moment from 'moment';
 import { MachineService } from './../../resources/machine-service';
 
 @autoinject
@@ -43,7 +44,17 @@ export class ManageMachines {
 
     private getMachines() {
         this.service.getAll().then(async response => {
-            this.machines = await response.json();
+            const machineList = await response.json();
+            machineList.sort(this.compareByDate),
+            this.machines = machineList;
         });
+    }
+
+    private compareByDate(a, b): number {
+        const d1 = a.createdAt;
+        const d2 = b.createdAt;
+        if (moment(d1).isBefore(moment(d2))) return -1;
+        if (moment(d1).isSame(moment(d2))) return 0;
+        return 1;
     }
 }

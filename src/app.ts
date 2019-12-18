@@ -1,9 +1,9 @@
+import {AuthorizeStep} from 'aurelia-authentication';
 import {AureliaConfiguration} from 'aurelia-configuration';
 import {autoinject, PLATFORM} from 'aurelia-framework';
 import {Router, RouterConfiguration} from 'aurelia-router';
-import {AuthorizeStep} from 'aurelia-authentication';
-import 'popper.js';
 import 'bootstrap';
+import 'popper.js';
 
 const NOTIFICATION_TIMEOUT = 10000;
 @autoinject
