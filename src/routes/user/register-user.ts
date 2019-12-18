@@ -1,8 +1,8 @@
+import { AuthService } from 'aurelia-authentication';
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { UserService } from './../../resources/user-service';
-import { AuthService } from 'aurelia-authentication';
 import { BootstrapFormRenderer } from './../../resources/validation/bootstrap-form-renderer';
 
 @autoinject
@@ -12,11 +12,12 @@ export class RegisterUser {
     public email: string;
     public password: number;
     public successfulSignup: boolean;
+    public errorText = '';
 
     constructor(validationControllerFactory: ValidationControllerFactory,
         private service: UserService,
         private authService: AuthService,
-        private router : Router ) {
+        private router: Router ) {
 
         this.controller = validationControllerFactory.createForCurrentScope();
         this.controller.addRenderer(new BootstrapFormRenderer());
@@ -37,34 +38,36 @@ export class RegisterUser {
         this.authService = authService;
     }
 
-    private validate(): Promise<boolean> {
+    public validate(): Promise<boolean> {
         return this.controller.validate().then(result => result.valid);
     }
 
     public submit() {
         this.validate();
-        let jsonData = {
-            "name": this.name,
-            "email": this.email,
-            "psw": this.password
+        const jsonData = {
+            'name': this.name,
+            'email': this.email,
+            'psw': this.password
         };
-        //return this.authService.signup(this.name, this.email, this.password)
         return this.authService.signup(jsonData)
             .then(response => {
                 this.successfulSignup = true;
-                console.log("Successfully signed up.");
+                console.log('Successfully signed up.');
             })
-            .catch(error => {
+            .catch(async error => {
                 this.successfulSignup = false;
-                console.log("Failed signup! See error message below.");
+                if (error instanceof Response) {
+                    this.errorText = await error.text();
+                }
+                console.log('Failed signup! See error message below.');
                 console.log(error);
-
-            })
+            });
     }
 
     public attached() {
         // Remove the navigation bar on the login view
-        let navBar = document.getElementById("navigation-bar");
-        navBar.parentNode.removeChild(navBar);
+        const navBar = document.getElementById('navigation-bar');
+        if (!!navBar) navBar.parentNode.removeChild(navBar);
     }
+
 }
