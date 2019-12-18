@@ -9,7 +9,7 @@ const authConfig = {
     signupRedirect : '/',
     loginUrl: 'login',
     loginRedirect: '/',
-    logoutRedirect: 'login',
+    logoutRedirect: '/',
     expiredReload : 1,
     tokenName: 'token'
 };
