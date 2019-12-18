@@ -8,17 +8,13 @@ export class UserService extends Service {
     private static readonly LOGIN_ENDPOINT = 'login';
 
     public getUsers(): Promise<Response> {
-        return this.http.fetch(UserService.ENDPOINT);
+        return this.http.fetch(UserService.ENDPOINT, { headers: this.authHeader() });
     }
 
      public getUser(userId: string): Promise<Response> {
         const resource = `${UserService.ENDPOINT}/${userId}`;
-        return this.http.fetch(resource);
+        return this.http.fetch(resource, { headers: this.authHeader() });
     }
-
-/*    public registerUser(email: string, password: string){
-
-    } */
 
     public loginUser(email: string, password: string) {
         const resource = UserService.LOGIN_ENDPOINT;

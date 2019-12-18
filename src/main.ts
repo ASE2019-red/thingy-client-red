@@ -1,17 +1,18 @@
 import { AureliaConfiguration } from 'aurelia-configuration';
 import { Aurelia, LogManager } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
+import { Service } from 'resources/service';
 
 const authConfig = {
-    signupUrl: "user",
+    signupUrl: 'user',
     loginOnSignup : true,
-    signupRedirect : "/",
-    loginUrl: "login",
-    loginRedirect: "/",
-    logoutRedirect: "login",
+    signupRedirect : '/',
+    loginUrl: 'login',
+    loginRedirect: '/',
+    logoutRedirect: 'login',
     expiredReload : 1,
-    tokenName: "token"
-}
+    tokenName: 'token'
+};
 
 export function configure(aurelia: Aurelia) {
     aurelia.use
@@ -25,7 +26,12 @@ export function configure(aurelia: Aurelia) {
             config.setEnvironment(env);
 
         })
-        .plugin(PLATFORM.moduleName('aurelia-authentication'), authConfig)
+        .plugin(PLATFORM.moduleName('aurelia-authentication'), (baseConfig) => {
+            const config = aurelia.container.get(AureliaConfiguration);
+            const baseUrl = Service.getBaseUrl(config);
+            authConfig['baseUrl'] = baseUrl;
+            baseConfig.configure(authConfig);
+        })
         .plugin(PLATFORM.moduleName('aurelia-validation'));
 
     aurelia.start().then(() => {

@@ -6,7 +6,7 @@ export class CoffeeService extends Service {
     private static readonly ENDPOINT = 'coffee';
 
     public getAll(): Promise<Response> {
-        return this.http.fetch(CoffeeService.ENDPOINT);
+        return this.http.fetch(CoffeeService.ENDPOINT, { headers: this.authHeader() });
     }
 
 }
